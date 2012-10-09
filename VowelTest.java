@@ -2,6 +2,8 @@
 Q:
    You are given a String[] text, each element of which contains a single word. Encrypt the text by removing all vowels ('a', 'e', 'i', 'o', 'u') from every word that contains at least one non-vowel. If a word consists only of vowels, leave it as is. Return the result as a String[], where the ith element is the encrypted version of the ith element in text.
 
+This problem statement is the exclusive and proprietary property of TopCoder, Inc. Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited. (c)2003, TopCoder, Inc. All rights reserved.
+
 */
 
 
@@ -20,7 +22,6 @@ public class VowelTest {
 
 class VowelEncryptor {
     public String[] vowelEncrypt(String[] text){
-        System.out.println(text.length);
         String[] result = new String[text.length];
         int count = 0;
         for (int i = 0; i < text.length; i++) {
@@ -35,13 +36,11 @@ class VowelEncryptor {
             }
             if (count == text[i].length()){
                 result[i] = text[i];
-                count = 0;
             }
             else {
                 result[i] = temp.toString();
-                count = 0;
             }
-
+            count = 0;
         }
         return result;
     }
