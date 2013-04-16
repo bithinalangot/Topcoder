@@ -60,73 +60,55 @@ class RotateBoard {
         //Row
         for(int i = 0; i < N; i++) {
             for(int j = 0; j < (N - K) + 1 ; j++) {
-                if(!winR) {
-                    if(transboard[i][j] == 'R') {
-                        for(int k = j; k < K + j;k++) {
-                            if(transboard[i][k] == 'R') {
-                                countR++;
-                            }
+                if(transboard[i][j] == 'R') {
+                    for(int k = 0; k < K + j;k++){
+                        if(transboard[j][k] == 'R') {
+                            countR++;
                         }
-                        if(countR == K)
-                            winR = true;
-
-                        countR = 0;
                     }
                 }
-                if(!winB) {
-                    if(transboard[i][j] == 'B') {
-                        for(int k = j; k < K + j; k++) {
-                            if(transboard[i][k] == 'B') {
-                                countB++;
-                            }
+                if(transboard[i][j] == 'B') {
+                    for(int k = 0; k < K + j; k++){
+                        if(transboard[j][k] == 'B') {
+                            countB++;
                         }
-                        if(countB == K)
-                            winB = true;
-
-                        countB = 0;
                     }
+                }
+                if( countR == K ) {
+                    winR = true;
+                }
+                if( countB == K ) {
+                    winB = true;
                 }
             } 
-            //System.out.println("CountR at row R "+countR);
-            //System.out.println("CountB at row B "+countB);
             countB = 0;
             countR = 0;
         }
         //col
-        for(int i = 0; i < N; i++){
-            for(int j = 0; j < (N - K) + 1; j++){
-                System.out.print(transboard[j][i]);
-                if (!winR) {
-                    if(transboard[j][i] == 'R'){
-                        for(int k = i; k < K + i; k++) {
-                            //System.out.print(transboard[k][j]);
-                            if(transboard[k][i] == 'R'){
-                                countR++;
-                            }
+        for(int i = 0; i < (N - K) + 1; i++){
+            for(int j = 0; j < N; j++){
+                if(transboard[i][j] == 'R'){
+                    for(int k = 0; k < K + i; k++) {
+                        System.out.println
+                        if(transboard[j][k] == 'R') {
+                            countR++;
                         }
-                        if(countR == K){
-                            winR = true;
-                        }
-                        countR = 0;
                     }
                 }
-                if(!winB) {
-                    if(transboard[j][i] == 'B'){
-                        for(int k = i; k < K + i; k++) {
-                            //System.out.print(transboard[k][j]);
-                            if(transboard[k][i] == 'B') {
-                                countB++;
-                            }
+                if(transboard[i][j] == 'B') {
+                    for(int k = 0; k < K + i; k++) {
+                        if(transboard[j][k] == 'B') {
+                            countB++;
                         }
-                        if(countB == K)
-                            winB = true;
-                        countB = 0;
                     }
+                }
+                if(countR == K) {
+                    winR = true;
+                }
+                if(countB == K) {
+                    winB = true;
                 }
             }
-             
-            System.out.println();
-            //System.out.println("CountC at col B "+countB);
             countB = 0;
             countR = 0;
         }
