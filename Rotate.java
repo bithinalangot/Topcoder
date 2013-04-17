@@ -18,6 +18,7 @@ public class Rotate {
             }
             result[k] = t.play(board, K);
         }
+         
         for(int r = 1; r < result.length; r++){
             System.out.println("Case #"+r+": "+result[r]);
         }
@@ -50,26 +51,19 @@ class RotateBoard {
                 }
             }
         }
-        for(int i = 0; i < N; i++) {
-            for(int j = 0; j < N; j++) {
-                System.out.print(transboard[i][j]);
-            }
-            System.out.println();
-        }
-        //condition check
         //Row
         for(int i = 0; i < N; i++) {
             for(int j = 0; j < (N - K) + 1 ; j++) {
                 if(transboard[i][j] == 'R') {
-                    for(int k = 0; k < K + j;k++){
-                        if(transboard[j][k] == 'R') {
+                    for(int k = j; k < K + j;k++){
+                        if(transboard[i][k] == 'R') {
                             countR++;
                         }
                     }
                 }
                 if(transboard[i][j] == 'B') {
-                    for(int k = 0; k < K + j; k++){
-                        if(transboard[j][k] == 'B') {
+                    for(int k = j; k < K + j; k++){
+                        if(transboard[i][k] == 'B') {
                             countB++;
                         }
                     }
@@ -85,19 +79,18 @@ class RotateBoard {
             countR = 0;
         }
         //col
-        for(int i = 0; i < (N - K) + 1; i++){
-            for(int j = 0; j < N; j++){
-                if(transboard[i][j] == 'R'){
-                    for(int k = 0; k < K + i; k++) {
-                        System.out.println
-                        if(transboard[j][k] == 'R') {
+        for(int i = 0; i < N; i++){
+            for(int j = 0; j < (N - K) + 1; j++){
+                if(transboard[j][i] == 'R'){
+                    for(int k = j; k < K + j; k++) {
+                        if(transboard[k][i] == 'R') {
                             countR++;
                         }
                     }
                 }
-                if(transboard[i][j] == 'B') {
-                    for(int k = 0; k < K + i; k++) {
-                        if(transboard[j][k] == 'B') {
+                if(transboard[j][i] == 'B') {
+                    for(int k = j; k < K + j; k++) {
+                        if(transboard[k][i] == 'B') {
                             countB++;
                         }
                     }
@@ -120,7 +113,6 @@ class RotateBoard {
                         for(int k = i; k < N - K + 1; k++){
                             for(int f = j; f < K + k; f++) {
                                 if(transboard[k][f] == 'R')
-                //                    System.out.println(k+":"+f);
                                     countR++;
                             }
                             if(countR == K)
@@ -145,60 +137,49 @@ class RotateBoard {
                     }
                 }
             }
-            //System.out.println("CountR at Dia R "+countR);
-            //System.out.println("CountB at Dia B "+countB);
             countR = 0;
             countB = 0;
-        }
-        for(int i = 0; i < N - K + 1; i++) {
-            for(int j = N - 1; j > N - K + 1; j--) {
+        } 
+        for(int i = 0; i < (N - K) + 1; i++) {
+            for(int j = N - 1; j >= (N - K) + 1; j--) {
                 if(!winR) {
                     if(transboard[i][j] == 'R') {
-                        for(int k = i; k < N - K + 1; k++){
-                            for(int f = j; f > N - K + 1; f--) {
-                                if(transboard[k][f] == 'R')
-                                    countR++;
-                            }
-                            System.out.println("j:"+countR);
-                            if(countR == K)
-                                winR = true;
-                            
-              //              System.out.println("CountR at negdia "+countR);
-                            countR = 0;
+                        for(int f = j, k = i; f > j - K && f >= 0; f--, k++) {
+                            if(transboard[k][f] == 'R')
+                                countR++;
                         }
+                        if(countR == K)
+                            winR = true;
+                
+                        countR = 0;
                     }
                 }
                 if(!winB) {
                     if(transboard[i][j] == 'B'){
-                        for(int k = i; k < N - K + 1; k++){
-                            for(int f = j; f > N - K + 1; f--) {
-                                if(transboard[k][f] == 'B') {
-                                    countB++;    
-                                }
+                        for(int k = i, f = j; f > j - K && f >= 0; k++, f--){
+                            if(transboard[k][f] == 'B') {
+                                countB++;    
                             }
-                            if(countB == K)
-                                winB = true;
-                          
-            //                System.out.println("CountB at negdia "+countB);
-   
-                            countB = 0;
                         }
+                        
+                        if(countB == K)
+                            winB = true;
+   
+                        countB = 0;
                     }
                 }
             }
             countR = 0;
             countB = 0;
-
-        } 
-        System.out.println("WinB:"+winB+" WinR:"+winR);
+        }
         if( winB && winR ) {
             return "Both";
         }
         else if( winB ) { 
-            return "Win B";
+            return "Blue";
         }
         else if( winR ) {
-            return "Win R";
+            return "Red";
         }
         else {
             return "Neither";
